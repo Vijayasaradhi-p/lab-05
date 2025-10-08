@@ -3,6 +3,7 @@ package com.example.lab5_starter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ public class CityDialogFragment extends DialogFragment {
     interface CityDialogListener {
         void updateCity(City city, String title, String year);
         void addCity(City city);
+
+        void deleteCity(City city);
     }
     private CityDialogListener listener;
 
@@ -72,6 +75,11 @@ public class CityDialogFragment extends DialogFragment {
                         listener.updateCity(city, title, year);
                     } else {
                         listener.addCity(new City(title, year));
+                    }
+                })
+                .setNeutralButton("Delete", (dialog, which) ->{
+                    if (Objects.equals(tag, "City Details")) {
+                        listener.deleteCity(city);
                     }
                 })
                 .create();
